@@ -12,8 +12,8 @@ using WebStore.Data;
 namespace WebStore.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    [Migration("20221016111839_AddCategoryToDb")]
-    partial class AddCategoryToDb
+    [Migration("20221017213450_AddCategory")]
+    partial class AddCategory
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
