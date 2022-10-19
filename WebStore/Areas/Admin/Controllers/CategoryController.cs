@@ -2,8 +2,9 @@
 using Store.DataAccess.Repository.IRepository;
 using Store.Models;
 
-namespace WebStore.Controllers
+namespace WebStore.Areas.Admin.Controllers
 {
+    [Area("Admin")]
     public class CategoryController : Controller
     {
         private readonly IUnitOfWork _unitOfWork;
@@ -55,9 +56,9 @@ namespace WebStore.Controllers
             {
                 return NotFound();
             }
-  
+
             var categoryFromDbFirst = _unitOfWork.Category.GetFirstOrDefault(u => u.Id == id);
-           
+
             if (categoryFromDbFirst == null)
             {
                 return NotFound();
@@ -78,7 +79,7 @@ namespace WebStore.Controllers
 
             if (ModelState.IsValid)
             {
-                _unitOfWork.Category.Update(obj); 
+                _unitOfWork.Category.Update(obj);
                 _unitOfWork.Save();
                 TempData["success"] = "Category edited successfully!";
                 return RedirectToAction("Index");

@@ -9,8 +9,7 @@ namespace Store.DataAccess.Repository.IRepository
     public interface IUnitOfWork
     {
         ICategoryRepository Category { get; }
-
-       // ISubCategoryRepository CoverType { get; }
+        ISubCategoryRepository SubCategory{ get; }
        // IProductRepository Product { get; }
 
 
