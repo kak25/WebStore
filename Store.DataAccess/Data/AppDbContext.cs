@@ -1,8 +1,8 @@
 ﻿using Microsoft.EntityFrameworkCore;
-using System.Collections.Generic;
-using WebStore.Models;
+using Store.Models;
 
-namespace WebStore.Data
+
+namespace Store.DataAccess.Data
 {
     public class AppDbContext :DbContext
     {
