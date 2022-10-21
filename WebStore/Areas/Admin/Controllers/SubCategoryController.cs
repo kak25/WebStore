@@ -5,44 +5,36 @@ using Store.Models;
 namespace WebStore.Areas.Admin.Controllers
 {
     [Area("Admin")]
-    public class CategoryController : Controller
+    public class SubCategoryController : Controller
     {
         private readonly IUnitOfWork _unitOfWork;
-       
-
-        public CategoryController(IUnitOfWork unitOfWork) 
+        public SubCategoryController(IUnitOfWork unitOfWork) 
         {
             _unitOfWork = unitOfWork;
         }
-
         public IActionResult Index()
         {
-            IEnumerable<Category> objCategoryList = _unitOfWork.Category.GetAll();
-            return View(objCategoryList);
+            IEnumerable<SubCategory> objSubCategoryList = _unitOfWork.SubCategory.GetAll();
+            return View(objSubCategoryList);
         }
 
         //GET action method
         public IActionResult Create()
         {
-
             return View();
         }
 
         //POST action method
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public IActionResult Create(Category obj)
+        public IActionResult Create(SubCategory obj)
         {
-            if (obj.Name == obj.DisplayOrder.ToString()) 
-            {
-                ModelState.AddModelError("CustomError", "The DisplayOrder cannot exactly match the Name.");
-            }
 
             if (ModelState.IsValid)
             {
-                _unitOfWork.Category.Add(obj); 
+                _unitOfWork.SubCategory.Add(obj); 
                 _unitOfWork.Save();
-                TempData["success"] = "Category created successfully!";
+                TempData["success"] = "SubCategory created successfully!";
                 return RedirectToAction("Index");
             }
             return View(obj);
@@ -57,31 +49,27 @@ namespace WebStore.Areas.Admin.Controllers
                 return NotFound();
             }
 
-            var categoryFromDbFirst = _unitOfWork.Category.GetFirstOrDefault(u => u.Id == id);
+            var subCategoryFromDbFirst = _unitOfWork.SubCategory.GetFirstOrDefault(u => u.Id == id);
 
-            if (categoryFromDbFirst == null)
+            if (subCategoryFromDbFirst == null)
             {
                 return NotFound();
             }
 
-            return View(categoryFromDbFirst);
+            return View(subCategoryFromDbFirst);
         }
 
         //POST action method
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public IActionResult Edit(Category obj)
+        public IActionResult Edit(SubCategory obj)
         {
-            if (obj.Name == obj.DisplayOrder.ToString())
-            {
-                ModelState.AddModelError("CustomError", "The DisplayOrder cannot exactly match the Name.");
-            }
 
             if (ModelState.IsValid)
             {
-                _unitOfWork.Category.Update(obj);
+                _unitOfWork.SubCategory.Update(obj);
                 _unitOfWork.Save();
-                TempData["success"] = "Category edited successfully!";
+                TempData["success"] = "SubCategory edited successfully!";
                 return RedirectToAction("Index");
             }
             return View(obj);
@@ -96,17 +84,15 @@ namespace WebStore.Areas.Admin.Controllers
             {
                 return NotFound();
             }
-
            
-            var categoryFromDbFirst = _unitOfWork.Category.GetFirstOrDefault(u => u.Id == id);
-         
+            var subCategoryFromDbFirst = _unitOfWork.SubCategory.GetFirstOrDefault(u => u.Id == id);
 
-            if (categoryFromDbFirst == null)
+            if (subCategoryFromDbFirst == null)
             {
                 return NotFound();
             }
 
-            return View(categoryFromDbFirst);
+            return View(subCategoryFromDbFirst);
         }
 
         //POST action method
@@ -114,14 +100,14 @@ namespace WebStore.Areas.Admin.Controllers
         [ValidateAntiForgeryToken]
         public IActionResult DeletePOST(int? id)
         {
-            var obj = _unitOfWork.Category.GetFirstOrDefault(u => u.Id == id);
+            var obj = _unitOfWork.SubCategory.GetFirstOrDefault(u => u.Id == id);
             if (obj == null)
             {
                 return NotFound();
             }
-            _unitOfWork.Category.Remove(obj); 
+            _unitOfWork.SubCategory.Remove(obj);
             _unitOfWork.Save();
-            TempData["success"] = "Category deleted successfully!";
+            TempData["success"] = "SubCategory deleted successfully!";
             return RedirectToAction("Index");
         }
 

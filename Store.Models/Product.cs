@@ -20,8 +20,10 @@ namespace Store.Models
         [Required]
         [Range(1, 10000)]
         public double Price { get; set; }
-
+  
+        [ValidateNever]
         public string ImageUrl { get; set; }
+      
 
         [Required]
         public int CategoryId { get; set; }

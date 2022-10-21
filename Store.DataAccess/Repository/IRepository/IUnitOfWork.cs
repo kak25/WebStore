@@ -10,7 +10,7 @@ namespace Store.DataAccess.Repository.IRepository
     {
         ICategoryRepository Category { get; }
         ISubCategoryRepository SubCategory{ get; }
-       // IProductRepository Product { get; }
+        IProductRepository Product { get; }
 
 
         void Save();
