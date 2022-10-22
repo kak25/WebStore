@@ -5,14 +5,14 @@ $(document).ready(function () {
 });
 
 function loadDataTable() {
-    dataTable = $('#tblData').DataTable({
+    dataTable = $('#productTable').DataTable({
         "ajax": {
             "url": "/Admin/Product/GetAll"
         },
         "columns": [
             { "data": "title", "width": "15%" },
             { "data": "price", "width": "15%" },
-            { "data": "category.name", "width": "15%" },
+            { "data": "category.name", "width": "15%"},
             {
                 "data": "id",
                 "render": function (data) {
