@@ -109,8 +109,9 @@ namespace WebStore.Areas.Admin.Controllers
             return Json(new { data = productList });
         }
 
+        //POST
         [HttpDelete]
-        public IActionResult DeletePost(int? id)
+        public IActionResult Delete(int? id)
         {
             var obj = _unitOfWork.Product.GetFirstOrDefault(u => u.Id == id);
             if(obj == null)
@@ -128,7 +129,6 @@ namespace WebStore.Areas.Admin.Controllers
             _unitOfWork.Save();
 
             return Json(new { success = true, message = "Delete successful" });
-
 
             
         }
