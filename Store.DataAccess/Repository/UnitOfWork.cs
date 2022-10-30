@@ -18,10 +18,13 @@ namespace Store.DataAccess.Repository
             Category = new CategoryRepository(_db);
             SubCategory = new SubCategoryRepository(_db);
             Product = new ProductRepository(_db);
+            Company = new CompanyRepository(_db);
         }
         public ICategoryRepository Category { get; private set; }
         public ISubCategoryRepository SubCategory { get; private set; }
         public IProductRepository Product { get; private set; }
+        public ICompanyRepository Company { get; private set; }
+
 
         public void Save()
         {
