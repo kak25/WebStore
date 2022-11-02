@@ -19,5 +19,16 @@ namespace Store.DataAccess.Repository
 
         }
 
+        public int AddToCount(ShoppingCart cart)
+        {
+            cart.Count += 1;
+            return cart.Count;
+        }
+
+        public int RemoveFromCount(ShoppingCart cart)
+        {
+            cart.Count -= 1;
+            return cart.Count;
+        }
     }
 }

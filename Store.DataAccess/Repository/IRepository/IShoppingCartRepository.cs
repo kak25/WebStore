@@ -9,5 +9,8 @@ namespace Store.DataAccess.Repository.IRepository
 {
     public interface IShoppingCartRepository : IRepository<ShoppingCart>
     {   
+        int AddToCount(ShoppingCart cart);
+
+        int RemoveFromCount(ShoppingCart cart);
     }
 }
