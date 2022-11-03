@@ -11,7 +11,6 @@ namespace Store.DataAccess.Repository.IRepository
         ICategoryRepository Category { get; }
         ISubCategoryRepository SubCategory{ get; }
         IProductRepository Product { get; }
-        ICompanyRepository Company { get; }
         IApplicationUserRepository ApplicationUser { get; }
         IShoppingCartRepository ShoppingCart { get; }
 
