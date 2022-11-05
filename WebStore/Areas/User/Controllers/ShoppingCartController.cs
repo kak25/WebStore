@@ -38,6 +38,24 @@ namespace WebStore.Areas.User.Controllers
             return View(ShoppingCartVM);
         }
 
+        public IActionResult Summary()
+        {
+            //var claimsIdentity = (ClaimsIdentity)User.Identity;
+            //var claim = claimsIdentity.FindFirst(ClaimTypes.NameIdentifier);
+
+            //ShoppingCartVM = new ShoppingCartVM()
+            //{
+            //    ShoppingCartList = _unitOfWork.ShoppingCart.GetAll(u => u.ApplicationUserId == claim.Value, includeProperties: "Product")
+            //};
+            //foreach (var cart in ShoppingCartVM.ShoppingCartList)
+            //{
+            //    ShoppingCartVM.Total += (cart.Product.Price * cart.Count);
+            //}
+            //return View(ShoppingCartVM);
+
+            return View();
+        }
+
         public IActionResult Plus(int ShoppingCartId)
         {
             var cart = _unitOfWork.ShoppingCart.GetFirstOrDefault(u => u.Id == ShoppingCartId);
