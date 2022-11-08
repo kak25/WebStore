@@ -15,7 +15,6 @@ namespace WebStore.Areas.User.Controllers
 
         public ShoppingCartVM ShoppingCartVM { get; set; }
 
-        public int OrderTotal { get; set; }
 
         public ShoppingCartController(IUnitOfWork unitOfWork)
         {
@@ -29,32 +28,42 @@ namespace WebStore.Areas.User.Controllers
 
             ShoppingCartVM = new ShoppingCartVM()
             {
-                ShoppingCartList = _unitOfWork.ShoppingCart.GetAll(u => u.ApplicationUserId == claim.Value, includeProperties: "Product")
+                ShoppingCartList = _unitOfWork.ShoppingCart.GetAll(u => u.ApplicationUserId == claim.Value, includeProperties: "Product"),
+                OrderHeader = new()
             };
             foreach(var cart in ShoppingCartVM.ShoppingCartList)
             {
-                ShoppingCartVM.Total += (cart.Product.Price * cart.Count);
+                ShoppingCartVM.OrderHeader.OrderTotal += (cart.Product.Price * cart.Count);
             }
             return View(ShoppingCartVM);
         }
 
         public IActionResult Summary()
         {
-            //var claimsIdentity = (ClaimsIdentity)User.Identity;
-            //var claim = claimsIdentity.FindFirst(ClaimTypes.NameIdentifier);
+            var claimsIdentity = (ClaimsIdentity)User.Identity;
+            var claim = claimsIdentity.FindFirst(ClaimTypes.NameIdentifier);
 
-            //ShoppingCartVM = new ShoppingCartVM()
-            //{
-            //    ShoppingCartList = _unitOfWork.ShoppingCart.GetAll(u => u.ApplicationUserId == claim.Value, includeProperties: "Product")
-            //};
-            //foreach (var cart in ShoppingCartVM.ShoppingCartList)
-            //{
-            //    ShoppingCartVM.Total += (cart.Product.Price * cart.Count);
-            //}
-            //return View(ShoppingCartVM);
+            ShoppingCartVM = new ShoppingCartVM()
+            {
+                ShoppingCartList = _unitOfWork.ShoppingCart.GetAll(u => u.ApplicationUserId == claim.Value, includeProperties: "Product"),
+                OrderHeader = new()
+            };
+            ShoppingCartVM.OrderHeader.ApplicationUser = _unitOfWork.ApplicationUser.GetFirstOrDefault(u => u.Id == claim.Value);
 
-            return View();
+            ShoppingCartVM.OrderHeader.Name = ShoppingCartVM.OrderHeader.ApplicationUser.Name;
+            ShoppingCartVM.OrderHeader.PhoneNumber = ShoppingCartVM.OrderHeader.ApplicationUser.PhoneNumber;
+            ShoppingCartVM.OrderHeader.Address = ShoppingCartVM.OrderHeader.ApplicationUser.Address;
+            ShoppingCartVM.OrderHeader.PostalCode = ShoppingCartVM.OrderHeader.ApplicationUser.PostalCode;
+            ShoppingCartVM.OrderHeader.City = ShoppingCartVM.OrderHeader.ApplicationUser.City;
+            
+
+            foreach (var cart in ShoppingCartVM.ShoppingCartList)
+            {
+                ShoppingCartVM.OrderHeader.OrderTotal += (cart.Product.Price * cart.Count);
+            }
+            return View(ShoppingCartVM);
         }
+
 
         public IActionResult Plus(int ShoppingCartId)
         {
