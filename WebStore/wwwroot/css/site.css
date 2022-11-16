@@ -16,3 +16,21 @@ html {
 body {
   margin-bottom: 60px;
 }
+
+.main-container{
+    padding-top: 50px;
+}
+
+.index_intro {
+   
+    width: 100%;
+    background-color: #f3f3f3;
+}
+
+.index_intro.jumbotron {
+    padding:100px 60px;
+    margin:0px;
+    background-color: blue;
+
+   background-image: url('images/jumbotron.jpg');
+}
