@@ -73,6 +73,7 @@ namespace WebStore.Areas.User.Controllers
             var claimsIdentity = (ClaimsIdentity)User.Identity;
             var claim = claimsIdentity.FindFirst(ClaimTypes.NameIdentifier);
 
+
             ShoppingCartVM.ShoppingCartList = _unitOfWork.ShoppingCart.GetAll(u => u.ApplicationUserId == claim.Value,
                 includeProperties: "Product");
 
@@ -81,15 +82,13 @@ namespace WebStore.Areas.User.Controllers
             ShoppingCartVM.OrderHeader.OrderDate = System.DateTime.Now;
             ShoppingCartVM.OrderHeader.ApplicationUserId = claim.Value;
 
-
             foreach (var cart in ShoppingCartVM.ShoppingCartList)
             {
                 cart.Price = cart.Product.Price;
                 ShoppingCartVM.OrderHeader.OrderTotal += (cart.Price * cart.Count);
             }
-            System.Console.WriteLine(claim.Value);
 
-            System.Console.WriteLine(ShoppingCartVM.OrderHeader);
+            
             _unitOfWork.OrderHeader.Add(ShoppingCartVM.OrderHeader);
             _unitOfWork.Save();
             foreach (var cart in ShoppingCartVM.ShoppingCartList)

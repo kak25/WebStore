@@ -12,8 +12,8 @@ using Store.DataAccess.Data;
 namespace WebStore.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    [Migration("20221109213113_OrderHeaderPatch")]
-    partial class OrderHeaderPatch
+    [Migration("20221117230231_OrderHeader")]
+    partial class OrderHeader
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -293,7 +293,6 @@ namespace WebStore.Migrations
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("ApplicationUserId")
-                        .IsRequired()
                         .HasColumnType("nvarchar(450)");
 
                     b.Property<string>("Carrier")
@@ -532,9 +531,7 @@ namespace WebStore.Migrations
                 {
                     b.HasOne("Store.Models.ApplicationUser", "ApplicationUser")
                         .WithMany()
-                        .HasForeignKey("ApplicationUserId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
+                        .HasForeignKey("ApplicationUserId");
 
                     b.Navigation("ApplicationUser");
                 });

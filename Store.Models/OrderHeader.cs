@@ -11,11 +11,14 @@ namespace Store.Models
 {
     public class OrderHeader
     {
+        [Required]
+        [Key]
         public int Id { get; set; }
-        public string ApplicationUserId { get; set; }
+        public string? ApplicationUserId { get; set; }
         [ForeignKey("ApplicationUserId")]
         [ValidateNever]
-        public ApplicationUser ApplicationUser { get; set; }
+        
+        public ApplicationUser? ApplicationUser { get; set; }
 
         [Required]
         public DateTime OrderDate { get; set; }
@@ -41,11 +44,6 @@ namespace Store.Models
         public string PostalCode { get; set; }
         [Required]
         public string Name { get; set; }
-
-
-
-
-
 
     }
 }

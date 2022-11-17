@@ -21,6 +21,7 @@ namespace Store.DataAccess.Repository
             ApplicationUser = new ApplicationUserRepository(_db);
             ShoppingCart = new ShoppingCartRepository(_db);
             OrderDetail = new OrderDetailRepository(_db);
+            OrderHeader = new OrderHeaderRepository(_db);
 
         }
         public ICategoryRepository Category { get; private set; }
