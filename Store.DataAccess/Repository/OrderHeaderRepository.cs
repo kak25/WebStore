@@ -38,5 +38,13 @@ namespace Store.DataAccess.Repository
                 }
             }
         }
+
+        void IOrderHeaderRepository.UpdateStripePaymentId(int id, string sessionId, string paymentIntentId)
+        {
+            var dbOrderHeader = _db.OrderHeaders.FirstOrDefault(u => u.Id == id);
+
+            dbOrderHeader.SessionId = sessionId;
+            dbOrderHeader.PaymentIntentId = paymentIntentId;
+        }
     }
 }
