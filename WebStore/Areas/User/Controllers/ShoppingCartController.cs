@@ -164,7 +164,7 @@ namespace WebStore.Areas.User.Controllers
                 _unitOfWork.Save();
             }
             List<ShoppingCart> shoppingCarts = _unitOfWork.ShoppingCart.GetAll(u => u.ApplicationUserId == orderHeader.ApplicationUserId).ToList();
-            _unitOfWork.ShoppingCart.RemoveRange(ShoppingCartVM.ShoppingCartList);
+            _unitOfWork.ShoppingCart.RemoveRange(shoppingCarts);
             _unitOfWork.Save();
             return View(id);
         }
