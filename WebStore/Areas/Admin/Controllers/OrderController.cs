@@ -35,10 +35,61 @@ namespace WebStore.Areas.Admin.Controllers
             };
             return View(OrderVM);
         }
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+		public IActionResult UpdateOrderDetail()
+		{
+           var orderHeader = _unitOfWork.OrderHeader.GetFirstOrDefault(u => u.Id == OrderVM.OrderHeader.Id, tracked:false);
+            orderHeader.Name = OrderVM.OrderHeader.Name;
+			orderHeader.PhoneNumber = OrderVM.OrderHeader.PhoneNumber;
+			orderHeader.Address = OrderVM.OrderHeader.Address;
+			orderHeader.PostalCode = OrderVM.OrderHeader.PostalCode;
+			orderHeader.City = OrderVM.OrderHeader.City;
 
+            if(OrderVM.OrderHeader.Carrier!= null)
+            {
+                orderHeader.Carrier = OrderVM.OrderHeader.Carrier;
+            }
 
-        #region API CALLS
-        [HttpGet]
+			if (OrderVM.OrderHeader.TrackingNumber != null)
+			{
+                orderHeader.TrackingNumber= OrderVM.OrderHeader.TrackingNumber;
+			}
+
+            _unitOfWork.OrderHeader.Update(orderHeader);
+            _unitOfWork.Save();
+            TempData["Success"] = "Order details updated successfully.";
+            return RedirectToAction("Details","Order", new {orderId = orderHeader.Id});
+		}
+
+		[HttpPost]
+		[ValidateAntiForgeryToken]
+		public IActionResult StartProcessing()
+		{
+			_unitOfWork.OrderHeader.UpdateStatus(OrderVM.OrderHeader.Id,SD.StatusInProcess);
+			_unitOfWork.Save();
+			TempData["Success"] = "Order status updated successfully.";
+			return RedirectToAction("Details", "Order", new { orderId = OrderVM.OrderHeader.Id });
+		}
+
+		[HttpPost]
+		[ValidateAntiForgeryToken]
+		public IActionResult ShipOrder()
+		{
+			var orderHeader = _unitOfWork.OrderHeader.GetFirstOrDefault(u => u.Id == OrderVM.OrderHeader.Id, tracked: false);
+            orderHeader.TrackingNumber = OrderVM.OrderHeader.TrackingNumber;
+            orderHeader.Carrier = OrderVM.OrderHeader.Carrier;
+            orderHeader.OrderStatus = SD.StatusShipped;
+            orderHeader.ShippingDate = DateTime.Now;
+
+            _unitOfWork.OrderHeader.Update(orderHeader);
+			_unitOfWork.Save();
+			TempData["Success"] = "Order shipped successfully.";
+			return RedirectToAction("Details", "Order", new { orderId = OrderVM.OrderHeader.Id });
+		}
+
+		#region API CALLS
+		[HttpGet]
         public IActionResult GetAll(string status)
         {
             IEnumerable<OrderHeader> orderHeaders;

@@ -43,6 +43,7 @@ namespace Store.DataAccess.Repository
         {
             var dbOrderHeader = _db.OrderHeaders.FirstOrDefault(u => u.Id == id);
 
+            dbOrderHeader.PaymentDate = DateTime.Now;
             dbOrderHeader.SessionId = sessionId;
             dbOrderHeader.PaymentIntentId = paymentIntentId;
         }
