@@ -1,11 +1,15 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
 using Store.DataAccess.Repository.IRepository;
 using Store.Models;
+using Store.Utils;
 
 namespace WebStore.Areas.Admin.Controllers
 {
     [Area("Admin")]
-    public class SubCategoryController : Controller
+	[Authorize(Roles = SD.Role_Admin)]
+
+	public class SubCategoryController : Controller
     {
         private readonly IUnitOfWork _unitOfWork;
         public SubCategoryController(IUnitOfWork unitOfWork) 
