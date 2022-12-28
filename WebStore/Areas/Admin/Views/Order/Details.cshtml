@@ -144,6 +144,21 @@
 									<input asp-for="OrderHeader.PaymentStatus" type="text" readonly class="form-control" />
 								</div>
 							</div>
+							@if (User.IsInRole(SD.Role_Admin) || User.IsInRole(SD.Role_Employee))
+							{
+								<div class="row my-1">
+									<div class="col-3">Session ID</div>
+									<div class="col-9">
+										<input asp-for="OrderHeader.SessionId" type="text" readonly class="form-control" />
+									</div>
+								</div>
+								<div class="row my-1">
+									<div class="col-3">Payment Intent ID</div>
+									<div class="col-9">
+										<input asp-for="OrderHeader.PaymentIntentId" type="text" readonly class="form-control" />
+									</div>
+								</div>
+							}
 							<input type="submit" asp-action="UpdateOrderDetail" class="btn btn-warning form-control my-1" value="Update Order Details" />
 
 
@@ -195,9 +210,9 @@
 									<input type="submit" asp-action="ShipOrder" class="btn btn-primary form-control my-1" value="Ship Order" />
 
 								}
-								if(Model.OrderHeader.OrderStatus != SD.StatusCancelled)
+								if(Model.OrderHeader.OrderStatus != SD.StatusCancelled && Model.OrderHeader.OrderStatus != SD.StatusCancelled)
 								{
-									<input type="submit" class="btn btn-danger form-control my-1" value="Cancel Order" />
+									<input type="submit" asp-action="CancelOrder" class="btn btn-danger form-control my-1" value="Cancel Order" />
 								}
 							}
 						</div>
