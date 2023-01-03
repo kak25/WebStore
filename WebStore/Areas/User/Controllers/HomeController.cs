@@ -4,6 +4,7 @@ using Microsoft.CodeAnalysis.CSharp.Syntax;
 using Microsoft.CodeAnalysis.VisualBasic.Syntax;
 using Store.DataAccess.Repository.IRepository;
 using Store.Models;
+using Store.Utils;
 using System.Diagnostics;
 using System.Security.Claims;
 
@@ -53,15 +54,17 @@ namespace WebStore.Areas.User.Controllers
 
             if (dbCart == null)
             {
-                _unitOfWork.ShoppingCart.AddToCount(shoppingCart);
                 _unitOfWork.ShoppingCart.Add(shoppingCart);
+                _unitOfWork.ShoppingCart.AddToCount(shoppingCart);
+                _unitOfWork.Save();
+                HttpContext.Session.SetInt32(SD.SessionCart, _unitOfWork.ShoppingCart.GetAll(u => u.ApplicationUserId == claim.Value).ToList().Count);
             }
             else 
             {
                 _unitOfWork.ShoppingCart.AddToCount(dbCart);
-            }
+                _unitOfWork.Save();
 
-            _unitOfWork.Save();
+            }
 
             return RedirectToAction(nameof(Index));
         }
