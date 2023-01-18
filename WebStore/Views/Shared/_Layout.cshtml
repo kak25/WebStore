@@ -16,17 +16,17 @@
  </head>
 <body>
     <header>
+        <div class="container-flullwidth">
+            <img src="~/images/Festool-program.jfif" width="100%" />
+        </div>
         <nav class="navbar navbar-expand-lg navbar-dark bg-primary">
             <div class="container-fluid">
-                <a class="navbar-brand" href="#">Webstore</a>
+                <a class="navbar-brand" asp-area="User" asp-controller="Home" asp-action="Index">Webstore</a>
                 <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarColor01" aria-controls="navbarColor01" aria-expanded="false" aria-label="Toggle navigation">
                     <span class="navbar-toggler-icon"></span>
                 </button>
                 <div class="collapse navbar-collapse" id="navbarColor01">
                     <ul class="navbar-nav me-auto">
-                        <li class="nav-item">
-                            <a class="nav-link" asp-area="User" asp-controller="Home" asp-action="Index">Home</a>    
-                        </li>
                         @if (User.IsInRole(SD.Role_Admin))
                         {
                             <li class="nav-item dropdown">
@@ -39,11 +39,14 @@
                                 </div>
                             </li>
                         }
-                        <li class="nav-item">
-                            <a class=nav-link asp-area="Admin" asp-controller="Order" asp-action="Index">
-                                Manage Orders<i class="bi bi-clipboard2-fill"></i>
-                            </a>
-                        </li>
+                        @if (User.Identity.IsAuthenticated)
+                        {
+                            <li class="nav-item">
+                                <a class=nav-link asp-area="Admin" asp-controller="Order" asp-action="Index">
+                                    Manage Orders<i class="bi bi-clipboard2-fill"></i>
+                                </a>
+                            </li>
+                        }
                         <li class="nav-item">
                             <a class=nav-link asp-area="User" asp-controller="ShoppingCart" asp-action="Index">
                                 @await Component.InvokeAsync("Cart")
@@ -54,9 +57,13 @@
                 </div>
             </div>
         </nav>
+       
     </header>
 
+  
+
     <div class="container">
+
         <main role="main" class="pb-3">
             @RenderBody()
         </main>

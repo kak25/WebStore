@@ -1,21 +1,13 @@
 ﻿@model IEnumerable<Product>
 
-
-
-	@*
-	<div class="row pb-0">
-
-		<h1>Halló !!</h1>
-	</div>
-*@
 	<div class="row pb-3">
 		@foreach (var product in Model)
 		{
 			<div class="col-lg-3 col-md-6">
 				<div class="row p-2">
 					<div class="col-12 p-1" style=" border-radius: 5px;">
-	
-						<div class="card shadow border-light" >
+
+					<div class="card shadow border-light">
 							<img src="@product.ImageUrl" class="card-img-top border-0 "/>
 	
 							<div class="card-body">
@@ -33,11 +25,11 @@
 							<a asp-action="Details" class="btn btn-primary form-control " asp-route-productId="@product.Id">
 								Details
 							</a>
-							
-							
-							<a asp-action="Details" class="btn btn-success form-control " asp-route-productId="@product.Id">
-									Details
-								</a>
+
+
+						@*	<a asp-action="Details" type="submit" value="Add to Cart" class=" btn btn-success form-control " asp-route-productId="@product.Id">
+									Add to cart
+								</a>*@
 							</div>
 						</div>
 					</div>
