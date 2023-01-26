@@ -2,9 +2,7 @@
 
 ## Description
 
-    What your application does,
-    Why you used the technologies you used,
-    Some of the challenges you faced and features you hope to implement in the future.
+Webstore is a .NET Core ecommerce application that uses MVC architecture and a repository pattern with entity framework for access to a MSSQL database. Users can register for an account. Add products to the shopping cart and pay with a card. Admin users and employee users can access all orders and process them. They can add and work with products and product categories.
 
 
 
