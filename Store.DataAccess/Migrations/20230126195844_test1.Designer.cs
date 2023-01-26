@@ -9,11 +9,11 @@ using Store.DataAccess.Data;
 
 #nullable disable
 
-namespace WebStore.Migrations
+namespace Store.DataAccess.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    [Migration("20221117230231_OrderHeader")]
-    partial class OrderHeader
+    [Migration("20230126195844_test1")]
+    partial class test1
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {

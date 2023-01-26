@@ -116,14 +116,13 @@ namespace WebStore.Areas.Identity.Pages.Account
             public string? City { get; set; }
             public string? PhoneNumber { get; set; }
             public string? Role { get; set; }
-            public int? CompanyId { get; set; }
+            
 
             [ValidateNever]
             public IEnumerable<SelectListItem> RoleList { get; set; }
 
 
-            [ValidateNever]
-            public IEnumerable<SelectListItem> CompanyList { get; set; }
+          
         }
 
 

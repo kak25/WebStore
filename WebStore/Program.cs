@@ -6,6 +6,7 @@ using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Identity.UI.Services;
 using Store.Utils;
 using Stripe;
+using Store.DataAccess.DbInitalizer;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -50,7 +51,7 @@ app.UseStaticFiles();
 
 app.UseRouting();
 StripeConfiguration.ApiKey = builder.Configuration.GetSection("Stripe:SecretKey").Get<string>();
-app.UseAuthentication();;
+app.UseAuthentication();
 app.UseAuthorization();
 app.UseSession();
 app.MapRazorPages();
@@ -59,3 +60,12 @@ app.MapControllerRoute(
     pattern: "{area=User}/{controller=Home}/{action=Index}/{id?}");
 
 app.Run();
+
+void SeedDataBase()
+{
+    using(var scope = app.Services.CreateScope())
+    {
+        var dbInitializer = scope.ServiceProvider.GetRequiredService<IDbInitializer>();
+        dbInitializer.Initialize();
+    }
+}

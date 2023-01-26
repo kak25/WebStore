@@ -15,6 +15,11 @@
 
   <ItemGroup>
     <ProjectReference Include="..\Store.Models\Store.Models.csproj" />
+    <ProjectReference Include="..\Store.Utils\Store.Utils.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Folder Include="Migrations\" />
   </ItemGroup>
 
 </Project>
