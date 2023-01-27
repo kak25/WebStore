@@ -8,7 +8,7 @@ using Store.DataAccess.Data;
 
 #nullable disable
 
-namespace WebStore.Migrations
+namespace Store.DataAccess.Migrations
 {
     [DbContext(typeof(AppDbContext))]
     partial class AppDbContextModelSnapshot : ModelSnapshot

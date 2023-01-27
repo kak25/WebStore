@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace Store.DataAccess.DbInitalizer
 {
-   public interface IDbInitializer
+    public interface IDbInitializer
     {
         void Initialize();
     }

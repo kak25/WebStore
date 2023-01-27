@@ -12,8 +12,8 @@ using Store.DataAccess.Data;
 namespace Store.DataAccess.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    [Migration("20230126195844_test1")]
-    partial class test1
+    [Migration("20230127053059_test2")]
+    partial class test2
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {

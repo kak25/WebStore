@@ -24,8 +24,8 @@ namespace Store.DataAccess.DbInitalizer
             RoleManager<IdentityRole> roleManager,
             AppDbContext db)
         {
-            _userManager = userManager;
             _roleManager = roleManager;
+            _userManager = userManager;
             _db = db;
         }
         public void Initialize()
@@ -33,7 +33,7 @@ namespace Store.DataAccess.DbInitalizer
 
             try
             {
-                if(_db.Database.GetPendingMigrations().Count() > 0)
+                if (_db.Database.GetPendingMigrations().Count() > 0)
                 {
                     _db.Database.Migrate();
                 }

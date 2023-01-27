@@ -19,6 +19,7 @@ builder.Services.Configure<StripeDetails>(builder.Configuration.GetSection("Stri
 builder.Services.AddIdentity<IdentityUser, IdentityRole>().AddDefaultTokenProviders()
     .AddEntityFrameworkStores<AppDbContext>();
 builder.Services.AddScoped<IUnitOfWork, UnitOfWork>();
+builder.Services.AddScoped<IDbInitializer, DbInitializer>();
 builder.Services.AddSingleton<IEmailSender, EmailSender>();
 builder.Services.AddRazorPages();
 builder.Services.ConfigureApplicationCookie(options =>
@@ -51,6 +52,7 @@ app.UseStaticFiles();
 
 app.UseRouting();
 StripeConfiguration.ApiKey = builder.Configuration.GetSection("Stripe:SecretKey").Get<string>();
+SeedDataBase();
 app.UseAuthentication();
 app.UseAuthorization();
 app.UseSession();
@@ -63,7 +65,7 @@ app.Run();
 
 void SeedDataBase()
 {
-    using(var scope = app.Services.CreateScope())
+    using (var scope = app.Services.CreateScope())
     {
         var dbInitializer = scope.ServiceProvider.GetRequiredService<IDbInitializer>();
         dbInitializer.Initialize();
