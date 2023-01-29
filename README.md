@@ -7,4 +7,4 @@ Webstore is a .NET Core ecommerce application that uses MVC architecture and a r
 
 
 ## Running the software
-To run the program please run the main function in the class [`program.cs] in the project [`Webstore/program.cs`].
+
